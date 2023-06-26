@@ -1,7 +1,7 @@
 package com.example.project;
 
 public class Mission {
-    private Plateau plateau;
+    public Plateau plateau;
     public Rover rover1;
     public Rover rover2;
 
@@ -9,10 +9,25 @@ public class Mission {
         this.plateau = new Plateau(maxX, maxY);
     }
 
+    public Mission(String input) {
+        String[] inputSplit = input.split("\n");
+
+        String[] dimensionSplit = inputSplit[0].split((" "));
+        this.plateau = new Plateau(Integer.parseInt(dimensionSplit[0]), Integer.parseInt(dimensionSplit[1]));
+
+        this.rover1 = placeRoverFromString(inputSplit[1]);
+        moveRoverFromString(inputSplit[2], this.rover1);
+
+        this.rover2 = placeRoverFromString(inputSplit[3]);
+        moveRoverFromString(inputSplit[4], this.rover2);
+    }
+
     private Rover placeRover(int x, int y, char dir) {
         return new Rover(x, y, dir);
     }
 
+    // Ensures the val parameter is between min and max
+    // overflow are clamped
     private int clamp(int min, int max, int val) {
         if (val < min) {
             return min;
@@ -32,15 +47,9 @@ public class Mission {
         );
     }
 
-    public void placeFirstRoverFromString(String roverString) {
-        this.rover1 = placeRoverFromString(roverString);
-    }
-
-    public void placeSecondRoverFromString(String roverString) {
-        this.rover2 = placeRoverFromString(roverString);
-    }
-
     public void moveRoverFromString(String commandsString, Rover r) {
+        // Possible commands are L (turn left), R (turn right) and M (move forward)
+        // Any other commande retrieved is ignored
         for (char cmd:commandsString.toCharArray()) {
             switch (cmd) {
                 case 'L':
@@ -50,11 +59,15 @@ public class Mission {
                     r.turnRight();
                     break;
                 case 'M':
-                    r.move();;
+                    r.move();
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    public String toString() {
+        return this.rover1.toString() + this.rover2.toString();
     }
 }

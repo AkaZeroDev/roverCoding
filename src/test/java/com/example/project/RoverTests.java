@@ -17,6 +17,7 @@ class RoverTests {
         Rover testRover = new Rover(2, 2, dirBeforeTurn);
         testRover.turnLeft();
         assertEquals(dirAfterTurn, testRover.currentDir);
+        assertEquals(2 + " " + 2 + " " + dirAfterTurn + "\n", testRover.toString());
     }
 
     @ParameterizedTest(name = "turn right from direction {0}")

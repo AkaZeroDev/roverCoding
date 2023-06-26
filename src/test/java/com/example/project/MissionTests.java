@@ -2,10 +2,31 @@ package com.example.project;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 class MissionTests {
+    @Test
+    @DisplayName("Create mission from input string")
+    void CreateMissionFromStringTest() {
+        String testString = "5 5\n1 2 N\nLMLMLMLMM\n3 3 E\nMMRMMRMRRM\n";
+
+        Mission testMission = new Mission(testString);
+
+        assertEquals(5, testMission.plateau.maxX);
+        assertEquals(5, testMission.plateau.maxY);
+
+        assertEquals(1, testMission.rover1.posX);
+        assertEquals(3, testMission.rover1.posY);
+        assertEquals('N', testMission.rover1.currentDir);
+
+        assertEquals(5, testMission.rover2.posX);
+        assertEquals(1, testMission.rover2.posY);
+        assertEquals('E', testMission.rover2.currentDir);
+    }
+
     @ParameterizedTest(name = "create rover from string")
     @CsvSource({
         "2 2 N, 2, 2, N",
@@ -16,13 +37,13 @@ class MissionTests {
     void placeRoverFromStringTest(String roverString, int expectedX, int expectedY, char expectedDir) {
         Mission testMission = new Mission(5, 5);
 
-        testMission.placeFirstRoverFromString(roverString);
+        testMission.rover1 = testMission.placeRoverFromString(roverString);
         assertEquals(expectedX, testMission.rover1.posX);
         assertEquals(expectedY, testMission.rover1.posY);
         assertEquals(expectedDir, testMission.rover1.currentDir);
     }
 
-    @ParameterizedTest(name = "create rover from string")
+    @ParameterizedTest(name = "create rover from string with incorrect coordinates")
     @CsvSource({
         "7 2 N, 5, 2, N",
         "-2 5 E, 0, 5, E",
@@ -32,7 +53,7 @@ class MissionTests {
     void placeRoverFromStringTestClamped(String roverString, int expectedX, int expectedY, char expectedDir) {
         Mission testMission = new Mission(5, 5);
 
-        testMission.placeFirstRoverFromString(roverString);
+        testMission.rover1 = testMission.placeRoverFromString(roverString);
         assertEquals(expectedX, testMission.rover1.posX);
         assertEquals(expectedY, testMission.rover1.posY);
         assertEquals(expectedDir, testMission.rover1.currentDir);
