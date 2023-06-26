@@ -17,4 +17,5 @@ gradle-app.setting
 *.iws
 
 # Misc
+.vscode
 *.log
