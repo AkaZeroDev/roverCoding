@@ -8,19 +8,23 @@ public class Rover {
     public int currentDirIndex;
 
     private char allDir[] = { 'N', 'E', 'S', 'W' };
-    private int moveXByDir[] = { 0, 1, 0, -1};
-    private int moveYByDir[] = { 1, 0, -1, 0};
+    // last one is error case where no movement happen
+    private int moveXByDir[] = { 0, 1, 0, -1, 0};
+    private int moveYByDir[] = { 1, 0, -1, 0, 0};
 
     public Rover(int posX, int posY, char dir) {
         this.posX = posX;
         this.posY = posY;
         this.currentDir = dir;
 
+        // default value
+        // will prevent movement if invalid dir
+        this.currentDirIndex = 5;
         // Retrieve current dir index
-        // Usefull to move
+        // Useful to move
         for (int i = 0; i < allDir.length; i++) {
             if (allDir[i] == dir) {
-                this.currentDirIndex = i; 
+                this.currentDirIndex = i;
             }
         }
     }

@@ -12,6 +12,13 @@ public class Mission {
     public Mission(String input) {
         String[] inputSplit = input.split("\n");
 
+        if (inputSplit.length != 5) {
+            this.plateau = new Plateau(0, 0);
+            this.rover1 = placeRover(0, 0, 'S');
+            this.rover2 = placeRover(0, 0, 'S');
+            return;
+        }
+
         String[] dimensionSplit = inputSplit[0].split((" "));
         this.plateau = new Plateau(Integer.parseInt(dimensionSplit[0]), Integer.parseInt(dimensionSplit[1]));
 
@@ -40,6 +47,11 @@ public class Mission {
     public Rover placeRoverFromString(String roverString) {
         String[] roverStringSplit = roverString.split(" ");
 
+        if (roverStringSplit.length != 3) {
+            return placeRover(0, 0, 'W');
+        }
+
+        // Direction only considers the first char
         return placeRover(
             clamp(0 ,this.plateau.maxX ,Integer.parseInt(roverStringSplit[0])),
             clamp(0 ,this.plateau.maxY ,Integer.parseInt(roverStringSplit[1])),
