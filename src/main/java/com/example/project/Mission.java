@@ -13,12 +13,21 @@ public class Mission {
         return new Rover(x, y, dir);
     }
 
+    private int clamp(int min, int max, int val) {
+        if (val < min) {
+            return min;
+        } else if (val > max) {
+            return max;
+        }
+        return val;
+    }
+
     private Rover placeRoverFromString(String roverString) {
         String[] roverStringSplit = roverString.split(" ");
 
         return placeRover(
-            Integer.parseInt(roverStringSplit[0]),
-            Integer.parseInt(roverStringSplit[1]),
+            clamp(0 ,this.plateau.maxX ,Integer.parseInt(roverStringSplit[0])),
+            clamp(0 ,this.plateau.maxY ,Integer.parseInt(roverStringSplit[1])),
             roverStringSplit[2].charAt(0)
         );
     }

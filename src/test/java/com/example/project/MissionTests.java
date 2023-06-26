@@ -21,4 +21,20 @@ class MissionTests {
         assertEquals(expectedY, testMission.rover1.posY);
         assertEquals(expectedDir, testMission.rover1.currentDir);
     }
+
+    @ParameterizedTest(name = "create rover from string")
+    @CsvSource({
+        "7 2 N, 5, 2, N",
+        "-2 5 E, 0, 5, E",
+        "0 9 S, 0, 5, S",
+        "-6 5 W, 0, 5, W",
+    })
+    void placeRoverFromStringTestClamped(String roverString, int expectedX, int expectedY, char expectedDir) {
+        Mission testMission = new Mission(5, 5);
+
+        testMission.placeFirstRoverFromString(roverString);
+        assertEquals(expectedX, testMission.rover1.posX);
+        assertEquals(expectedY, testMission.rover1.posY);
+        assertEquals(expectedDir, testMission.rover1.currentDir);
+    }
 }
