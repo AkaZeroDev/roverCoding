@@ -22,7 +22,7 @@ public class Mission {
         return val;
     }
 
-    private Rover placeRoverFromString(String roverString) {
+    public Rover placeRoverFromString(String roverString) {
         String[] roverStringSplit = roverString.split(" ");
 
         return placeRover(
@@ -38,5 +38,23 @@ public class Mission {
 
     public void placeSecondRoverFromString(String roverString) {
         this.rover2 = placeRoverFromString(roverString);
+    }
+
+    public void moveRoverFromString(String commandsString, Rover r) {
+        for (char cmd:commandsString.toCharArray()) {
+            switch (cmd) {
+                case 'L':
+                    r.turnLeft();
+                    break;
+                case 'R':
+                    r.turnRight();
+                    break;
+                case 'M':
+                    r.move();;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
