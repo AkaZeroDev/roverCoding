@@ -1,8 +1,5 @@
 package com.example.project;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class Rover {
     public int posX;
     public int posY;
@@ -19,6 +16,8 @@ public class Rover {
         this.posY = posY;
         this.currentDir = dir;
 
+        // Retrieve current dir index
+        // Usefull to move
         for (int i = 0; i < allDir.length; i++) {
             if (allDir[i] == dir) {
                 this.currentDirIndex = i; 
@@ -32,10 +31,11 @@ public class Rover {
     }
 
     public void turnLeft() {
-        currentDirIndex = currentDirIndex - 1 >= 0 ? currentDirIndex - 1 : 3;
+        currentDirIndex = currentDirIndex > 0 ? currentDirIndex - 1 : 3;
         currentDir = allDir[currentDirIndex];
     }
 
+    // Movement depends on direction faced
     public void move() {
         this.posX = this.posX + moveXByDir[currentDirIndex];
         this.posY = this.posY + moveYByDir[currentDirIndex];
