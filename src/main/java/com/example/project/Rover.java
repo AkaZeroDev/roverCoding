@@ -46,6 +46,6 @@ public class Rover {
     }
 
     public String toString() {
-        return posX + " " + posY + " " + currentDir + "\n";
+        return posX + " " + posY + " " + currentDir;
     }
 }

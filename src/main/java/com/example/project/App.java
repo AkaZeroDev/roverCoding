@@ -16,10 +16,13 @@ public class App {
         try {
             Path filePath = Path.of(args[0]);
             String content = Files.readString(filePath);
+            // System.out.println(content);
             m = new Mission(content);
         } catch (FileNotFoundException e) {
             String errorContent = "1 1\n1 1 N\nNOT VALID\n1 1 N\nNOT VALID\n";
             m = new Mission(errorContent);
         }
+
+        System.out.println(m.toString());
     }
 }

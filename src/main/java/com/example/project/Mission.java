@@ -80,6 +80,6 @@ public class Mission {
     }
 
     public String toString() {
-        return this.rover1.toString() + this.rover2.toString();
+        return this.rover1.toString() + "\n" + this.rover2.toString();
     }
 }
